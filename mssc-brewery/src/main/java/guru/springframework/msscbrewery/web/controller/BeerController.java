@@ -22,14 +22,14 @@ public class BeerController {
         return new ResponseEntity<>(beerService.getBeerById(beerId), HttpStatus.OK);
     }
 
-    @PostMapping // POST - create new beer
+    @PostMapping({"/"}) // POST - create new beer
     public ResponseEntity handlePost(@RequestBody BeerDto beerDto) {
 
         BeerDto savedDto = beerService.savedNewBeer(beerDto);
 
         HttpHeaders headers = new HttpHeaders();
         //TODO - add host name to url
-        headers.add("location", "/api/v1/beer/" + savedDto.getId().toString());
+        headers.add("location", "/api/v1/beer/" + savedDto.getId());
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
     @PutMapping({"/{beerId}"})
