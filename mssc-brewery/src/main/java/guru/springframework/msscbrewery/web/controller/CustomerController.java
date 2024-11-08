@@ -33,7 +33,7 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.getCustomerById(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping({"/"})
     public ResponseEntity addCustomer(@RequestBody CustomerDto customerDto) {
         CustomerDto savedCustomer =  customerService.saveNewCustomer(customerDto);
 

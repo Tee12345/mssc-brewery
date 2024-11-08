@@ -25,7 +25,7 @@ public class BeerController {
     @PostMapping({"/"}) // POST - create new beer
     public ResponseEntity handlePost(@RequestBody BeerDto beerDto) {
 
-        BeerDto savedDto = beerService.savedNewBeer(beerDto);
+        BeerDto savedDto = beerService.saveNewBeer(beerDto);
 
         HttpHeaders headers = new HttpHeaders();
         //TODO - add host name to url
