@@ -2,10 +2,13 @@ package guru.springframework.msscbrewery.web.controller;
 
 import guru.springframework.msscbrewery.services.CustomerService;
 import guru.springframework.msscbrewery.web.model.CustomerDto;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/v1/customer")
@@ -34,7 +39,7 @@ public class CustomerController {
     }
 
     @PostMapping({"/"})
-    public ResponseEntity addCustomer(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity addCustomer(@Valid @RequestBody CustomerDto customerDto) {
         CustomerDto savedCustomer =  customerService.saveNewCustomer(customerDto);
 
         HttpHeaders headers = new HttpHeaders();
@@ -44,7 +49,7 @@ public class CustomerController {
     }
 
     @PutMapping("/{customerId}")
-    public ResponseEntity updateCustomer(@PathVariable("customerId") UUID customerId ,@RequestBody CustomerDto customerDto) {
+    public ResponseEntity updateCustomer(@PathVariable("customerId") UUID customerId ,@Valid @RequestBody CustomerDto customerDto) {
 
         customerService.updateCustomer(customerId, customerDto);
 
@@ -57,4 +62,5 @@ public class CustomerController {
 
         customerService.deleteCustomer(customerId);
     }
+
 }
